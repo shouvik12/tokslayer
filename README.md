@@ -1,6 +1,6 @@
 # ⚔️ tokslayer
 
-> **Slays tokens before they reach Claude.**
+> **Slays tokens before they compound in your session.**
 
 You paste a GitHub README. Claude gets 4,600 tokens of nav chrome, boilerplate, and filler.  
 Tokslayer intercepts. Claude gets 1,200 tokens of pure signal.
@@ -89,9 +89,9 @@ Strips nav chrome, filler, verbose phrases
            ↓
 Replaces with shortest equivalent words (cl100k_base single-token merges)
            ↓
-SAVED: ~2,900 tokens shown
+Claude responds to compressed version — shorter, more focused output
            ↓
-Claude explains — faster, cheaper, more focused
+Compressed version stays in session history — every subsequent turn costs less
 ```
 
 **What gets slayed:**
@@ -122,6 +122,8 @@ Real token counts from live Claude Code sessions.
 | GitHub README (caveman) | 1,800 | 600 | **67%** |
 | API documentation | 105 | 35 | **67%** |
 | **Average** | | | **67%** |
+
+Note: these savings are on output tokens and session history. Claude responds to the compressed version, and the compressed version stays in context across all subsequent turns. Write-path interception for true input token saving is on the roadmap.
 
 ---
 
