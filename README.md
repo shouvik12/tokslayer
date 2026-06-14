@@ -145,6 +145,16 @@ Trooper handles the routing. Tokslayer handles the input. Together: lower cost, 
 
 ---
 
+## What's coming next
+
+The skill compresses what Claude responds to and what stays in session history going forward. The original paste still hits the main conversation once, on the turn you paste it.
+
+The next step is delegating Pattern 1 (pasted content + command) to a subagent via Claude Code's Task tool. The subagent's context absorbs the raw paste and does the work — only its compact result returns to the main thread. The bloated original never enters the main session's history at all, so it never gets resent on turn 2, 3, 4...
+
+Still no proxy, no server, no MCP  just Claude Code's existing subagent mechanism, invoked automatically by the skill.
+
+Skill ships today. Subagent delegation is next, if this gets used.
+
 ## License
 
 MIT — slay freely.
