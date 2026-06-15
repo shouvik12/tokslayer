@@ -1,8 +1,8 @@
 ---
 
 name: tokslayer
-version: 1.1.0
-description: Compress pasted content into dense signal. Removes clipboard bloat from READMEs, papers, docs, tickets, emails, and web pages.
+version: "1.1.0"
+description: "Compress pasted content into dense signal. Removes clipboard bloat from READMEs, papers, docs, tickets, emails, and web pages."
 always: true
 ------------
 
@@ -23,35 +23,16 @@ Users want the content.
 
 The conversation should keep the content, not the baggage.
 
----
-
 ## Pattern 1 — Pasted content + command
 
-When the prompt contains a large pasted document followed by a task:
+When a message contains a large pasted document followed by a task such as:
 
-```text
-[pasted content]
-
-summarize
-```
-
-```text
-[pasted content]
-
-explain
-```
-
-```text
-[pasted content]
-
-review
-```
-
-```text
-[pasted content]
-
-analyze
-```
+* summarize
+* explain
+* review
+* analyze
+* fix
+* what does this mean
 
 First create a compressed representation of the pasted content.
 
@@ -75,23 +56,9 @@ Replace verbose wording with shorter wording only when meaning remains unchanged
 
 Examples:
 
-```text
-in order to
-→
-to
-```
-
-```text
-is responsible for
-→
-handles
-```
-
-```text
-it should be noted that
-→
-[remove]
-```
+* "in order to" → "to"
+* "is responsible for" → "handles"
+* "it should be noted that" → remove
 
 If multiple sentences express the same idea, keep the strongest one.
 
@@ -108,37 +75,27 @@ If multiple sentences express the same idea, keep the strongest one.
 * Variable names
 * Proper nouns
 
----
-
-## Compression report
+## Compression Report
 
 Before answering, show:
 
-```text
 ORIGINAL: "<first 60 chars>..."
 OPTIMIZED: "<first 60 chars>..."
 ESTIMATED REDUCTION: ~X%
-```
 
 Use estimates only.
 
 Never fabricate exact token counts.
 
----
-
-## Response behavior
+## Response Behavior
 
 Perform the requested task using the compressed representation.
-
-The answer should reflect the optimized content, not the original wording.
 
 Focus on signal.
 
 Ignore removed boilerplate.
 
----
-
-## Pattern 2 — Normal user messages
+## Pattern 2 — Normal Conversation
 
 Do not rewrite ordinary conversation.
 
@@ -148,27 +105,19 @@ Do not show compression reports for normal chat.
 
 Only activate when substantial pasted content is detected.
 
----
-
-## Hard rules
+## Hard Rules
 
 * Preserve meaning exactly
 * Preserve technical correctness
-* Preserve language of the source
+* Preserve source language
 * Never modify code
 * Never modify stack traces
 * Never modify URLs or file paths
 * Never invent facts
 * Never invent savings
-* If compression provides little value, leave the content mostly unchanged
-
----
+* If compression provides little value, leave content mostly unchanged
 
 ## Goal
-
-The goal is not to make text shorter.
-
-The goal is to make pasted content denser.
 
 Keep the signal.
 
