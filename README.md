@@ -78,7 +78,7 @@ Restart Claude Code. Tokslayer activates on every session automatically.
 
 No proxy. No binary. No server. No MCP.
 
-Just a `SKILL.md` that Claude Code reads on startup. Claude itself detects pasted content, compresses it using cl100k_base-aligned vocabulary, and responds to your command using the optimized version.
+Just a `SKILL.md` that Claude Code reads on startup. Claude itself detects pasted content and rewrites it more concisely — dropping nav chrome and filler, keeping technical terms and structure — before responding to your command..
 
 ```
 You paste doc + type "explain"
@@ -87,7 +87,7 @@ Tokslayer detects pasted content
            ↓
 Strips nav chrome, filler, verbose phrases
            ↓
-Replaces with shortest equivalent words (cl100k_base single-token merges)
+Replaces verbose phrasing with more concise equivalents
            ↓
 Claude responds to compressed version — shorter, more focused output
            ↓
