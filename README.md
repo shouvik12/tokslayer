@@ -1,160 +1,278 @@
-# ⚔️ tokslayer
+# ⚔️ Tokslayer
 
-> **Slays tokens before they compound in your session.**
+> **Stop dragging dead context through your conversation.**
 
-You paste a GitHub README. Claude gets 4,600 tokens of nav chrome, boilerplate, and filler.  
-Tokslayer intercepts. Claude gets 1,200 tokens of pure signal.
+You paste a README.
 
-```
-ORIGINAL:  "Skip to content shouvik12 trooper Repository navigation..."  (~4,600 tokens)
-OPTIMIZED: "Trooper: LLM proxy. Local-first. Ollama default, Claude on escalate..."  (~1,200 tokens)
-SAVED:     ~3,400 tokens (74%)
-```
+Claude reads:
 
-```
-ORIGINAL:  "License: CC BY 4.0 arXiv:2504.15989v2 [cs.SE] 29 May 2025..."  (~4,800 tokens)
-OPTIMIZED: "Paper: LLMs use CoT for code repair, but CoT inflates token use..."  (~1,900 tokens)
-SAVED:     ~2,900 tokens (60%)
-```
+* navigation
+* badges
+* legal boilerplate
+* installation variants
+* marketing copy
+* repeated explanations
 
-**Same answer. Fraction of the cost.**
+You wanted the product.
 
----
+Claude got the whole website.
 
-## You're doing this right now without knowing it
-
-Every time you copy a webpage, a README, a doc page — your clipboard picks up everything. Navigation. Footers. Boilerplate. License text. Share buttons rendered as text. Metadata. All of it lands in Claude's context window.
-
-You wanted the content. Claude got the garbage too. And you paid for every token of it.
-
-Tokslayer slays the garbage before Claude sees it. You don't change how you work. You just stop paying for the noise.
+Tokslayer strips the noise, keeps the signal, and leaves a compact version in the conversation.
 
 ---
 
-## The problem nobody talks about
+## The problem
 
-Everyone optimizes what they *type*. Nobody optimizes what they *paste*.
+Most people optimize what they type.
 
-But developers paste constantly:
+Almost nobody optimizes what they paste.
 
-- GitHub READMEs
-- Research papers
-- API documentation
-- Jira tickets
-- Confluence pages
-- Stack Overflow answers
-- Slack threads
-- PR descriptions
-- Emails
+Yet developers constantly paste:
 
-All of it written for humans — verbose, padded, full of nav chrome and filler. Claude reads every token. You pay for every token.
+* GitHub READMEs
+* Research papers
+* API docs
+* Jira tickets
+* Confluence pages
+* Slack threads
+* PR descriptions
+* Emails
 
-**Your clipboard is leaking tokens. Tokslayer slays them.**
+These documents are full of text that helps humans navigate them but does nothing for the task you're trying to solve.
+
+Examples:
+
+```text
+Skip to content
+Repository navigation
+Contributors
+License
+Star History
+Sponsor
+Related Projects
+```
+
+Useful on GitHub.
+
+Useless when you're asking:
+
+```text
+Explain how this works.
+```
+
+---
+
+## What Tokslayer does
+
+When you paste content and give a command:
+
+```text
+[pasted content]
+
+summarize
+```
+
+```text
+[pasted content]
+
+review
+```
+
+```text
+[pasted content]
+
+explain
+```
+
+Tokslayer:
+
+1. Detects pasted content
+2. Removes navigation and boilerplate
+3. Removes redundant explanations
+4. Removes filler language
+5. Preserves technical details
+6. Answers using the compact version
+
+Example:
+
+```text
+ORIGINAL:
+Skip to content...
+Repository navigation...
+License...
+Sponsor...
+
+OPTIMIZED:
+Trooper: local-first LLM proxy.
+Ollama default.
+Escalate to Claude.
+Preserves session context.
+```
+
+---
+
+## What gets removed
+
+* Navigation chrome
+* Footers
+* Share links
+* Legal boilerplate
+* Marketing copy
+* Corporate filler
+* Duplicate explanations
+* Repeated sentences
+
+Examples:
+
+```text
+"in order to"
+→
+"to"
+```
+
+```text
+"is responsible for"
+→
+"handles"
+```
+
+```text
+"it should be noted that"
+→
+[removed]
+```
+
+---
+
+## What stays
+
+* Code blocks
+* Stack traces
+* URLs
+* File paths
+* Numbers
+* Error messages
+* Technical terms
+* Proper nouns
+* Variable names
+
+Meaning stays.
+
+Noise goes.
+
+---
+
+## Why it matters
+
+Without Tokslayer:
+
+```text
+Paste README
+↓
+README stays in conversation
+↓
+README influences every future turn
+```
+
+With Tokslayer:
+
+```text
+Paste README
+↓
+README compressed
+↓
+Conversation carries signal instead of noise
+```
+
+The longer the session runs, the more valuable that becomes.
 
 ---
 
 ## Install
 
-One file. Drop it in. Done.
-
 ```bash
-# macOS / Linux
 curl -fsSL https://raw.githubusercontent.com/shouvik12/tokslayer/main/install.sh | bash
 ```
 
-Or manually:
+Or:
 
 ```bash
 mkdir -p ~/.claude/skills/tokslayer
+
 curl -o ~/.claude/skills/tokslayer/SKILL.md \
   https://raw.githubusercontent.com/shouvik12/tokslayer/main/.claude/skills/tokslayer/SKILL.md
 ```
 
-Restart Claude Code. Tokslayer activates on every session automatically.
+Restart Claude Code.
+
+Done.
 
 ---
 
 ## How it works
 
-No proxy. No binary. No server. No MCP.
+No proxy.
 
-Just a `SKILL.md` that Claude Code reads on startup. Claude itself detects pasted content and rewrites it more concisely — dropping nav chrome and filler, keeping technical terms and structure — before responding to your command..
+No server.
 
-```
-You paste doc + type "explain"
-           ↓
-Tokslayer detects pasted content
-           ↓
-Strips nav chrome, filler, verbose phrases
-           ↓
-Replaces verbose phrasing with more concise equivalents
-           ↓
-Claude responds to compressed version — shorter, more focused output
-           ↓
-Compressed version stays in session history — every subsequent turn costs less
-```
+No MCP.
 
-**What gets slayed:**
-- Navigation chrome that came along with the copy
-- Filler phrases ("aforementioned", "in order to", "is responsible for")
-- Redundant sentences that repeat the same point
-- Marketing language and legal boilerplate
-- Verbose corporate speak
+No model fine-tuning.
 
-**What stays untouched:**
-- Code blocks
-- Stack traces
-- URLs and file paths
-- Numbers and metrics
-- Technical terms
-- Proper nouns
+Just a `SKILL.md`.
 
----
-
-## Benchmarks
-
-Real token counts from live Claude Code sessions.
-
-| Content | Original | Optimized | Saved |
-|---|---|---|---|
-| GitHub README (trooper) | 4,600 | 1,200 | **74%** |
-| Research paper (arXiv) | 4,800 | 1,900 | **60%** |
-| GitHub README (caveman) | 1,800 | 600 | **67%** |
-| API documentation | 105 | 35 | **67%** |
-| **Average** | | | **67%** |
-
-Note: these savings are on output tokens and session history. Claude responds to the compressed version, and the compressed version stays in context across all subsequent turns. Write-path interception for true input token saving is on the roadmap.
+Claude detects pasted content, compresses it, and reasons over the compressed representation.
 
 ---
 
 ## Works with
 
-- Claude Code ✅
-- Any agent that reads `SKILL.md` ✅
+* Claude Code
+* Any agent that supports `SKILL.md`
 
 ---
 
-## Part of the same army as
+## Roadmap
 
-| Repo | What |
-|---|---|
-| [**trooper**](https://github.com/shouvik12/trooper) | Routes Claude → Ollama fallback. Keeps you running when quota runs out. |
-| [**tokslayer**](https://github.com/shouvik12/tokslayer) | Slays clipboard bloat before it reaches Claude. |
+### Today
 
-Trooper handles the routing. Tokslayer handles the input. Together: lower cost, longer sessions, faster responses.
+Compress pasted content into a denser representation.
+
+### Next
+
+Automatic subagent delegation.
+
+```text
+Large document
+↓
+Subagent
+↓
+Compression
+↓
+Compact result
+↓
+Main conversation
+```
+
+The raw document never enters the primary thread.
+
+Only the signal does.
 
 ---
 
-## What's coming next
+## Related
 
-The skill compresses what Claude responds to and what stays in session history going forward. The original paste still hits the main conversation once, on the turn you paste it.
+| Project   | Purpose                              |
+| --------- | ------------------------------------ |
+| trooper   | Route between local and cloud models |
+| tokslayer | Compress clipboard context           |
 
-The next step is delegating Pattern 1 (pasted content + command) to a subagent via Claude Code's Task tool. The subagent's context absorbs the raw paste and does the work — only its compact result returns to the main thread. The bloated original never enters the main session's history at all, so it never gets resent on turn 2, 3, 4...
+Trooper keeps sessions alive.
 
-Still no proxy, no server, no MCP  just Claude Code's existing subagent mechanism, invoked automatically by the skill.
+Tokslayer keeps them lean.
 
-Skill ships today. Subagent delegation is next, if this gets used.
+---
 
 ## License
 
-MIT — slay freely.
+MIT
